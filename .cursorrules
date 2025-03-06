@@ -1,0 +1,17 @@
+This repository is a Quarto-based learning repository that demonstrates how to create and manage Git submodules.
+
+The repository contains:
+- A main repository with Quarto documentation
+- Two submodules (repo_01 and repo_02)
+- Learning content about Git submodules and Cursor-specific files
+
+Style guidelines:
+- Use markdown for all documentation
+- Follow Quarto conventions for content organization
+- Use bash for all code examples related to Git operations
+
+When generating code or content:
+- Prefer clear, educational explanations
+- Include practical examples
+- Add callouts for important information
+- Consider both beginners and experienced users 

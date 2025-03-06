@@ -1,0 +1,27 @@
+# Cursor ignore file
+# Exclude repo_02 from Cursor indexing and AI features
+repo_02/
+
+# Inherit patterns from .gitignore by default
+# Add any additional patterns below that you want to exclude from Cursor
+
+# Large binary files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.iso
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Credentials and secrets
+.env.local
+.env.*.local
+*_key.json
+*_credentials.json
+
+# Temporary files specific to Cursor
+.cursor-index/ 

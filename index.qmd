@@ -4,24 +4,29 @@ title: "Git Submodules Learning Repository"
 
 ## Welcome to the learning repository
 
-This repository contains learning materials about Git submodules and how to effectively use them in your projects.
+This repository contains learning materials about Git submodules and how to effectively use them in your projects, as well as information about Cursor-specific files for managing your development environment.
 
 ### What you'll learn
 
 - How to create a meta repository with Git submodules
 - How to manage and update submodules
 - Best practices for working with submodules
+- How to use Cursor-specific files (.cursorignore, .cursorindexingignore, .cursorrules)
 
 ### Getting started
 
 Navigate to the [Git Submodules](content/01_git_submodules/index.qmd) section to begin learning about creating and managing Git submodules.
+
+For information about Cursor-specific files, check out the [Cursor Files](content/02_cursor_specific_files/index.qmd) section.
 
 ### Repository structure
 
 ```
 main_repo/
 ├── repo_01/         # First submodule
-└── repo_02/         # Second submodule
+├── repo_02/         # Second submodule
+├── .cursorignore    # Cursor ignore file
+└── .cursorrules     # Cursor rules file
 ```
 
 This learning repository itself is structured as a Quarto website, making it easy to navigate and learn the concepts. 

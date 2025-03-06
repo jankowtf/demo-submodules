@@ -10,6 +10,8 @@ website:
         text: Home
       - href: content/01_git_submodules/index.qmd
         text: Git Submodules
+      - href: content/02_cursor_specific_files/index.qmd
+        text: Cursor Files
   sidebar:
     style: "docked"
     contents:
@@ -18,6 +20,9 @@ website:
           - content/01_git_submodules/index.qmd
           - content/01_git_submodules/creating_submodules.qmd
           - content/01_git_submodules/managing_submodules.qmd
+      - section: "Cursor-Specific Files"
+        contents:
+          - content/02_cursor_specific_files/index.qmd
 
 format:
   html:

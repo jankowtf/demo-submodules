@@ -1,0 +1,127 @@
+---
+title: "Cursor-Specific Files"
+---
+
+## Understanding Cursor-Specific Files
+
+When working with the Cursor IDE, there are several special files that can help you control how Cursor interacts with your codebase. These files are particularly important when working with repositories that contain submodules or sensitive information.
+
+### Cursor Ignore Files
+
+Cursor provides two different ignore files that serve similar purposes to `.gitignore`:
+
+#### .cursorignore
+
+The `.cursorignore` file makes a best-effort attempt to exclude files from both AI features and indexing. This is useful for:
+
+- Excluding sensitive files from AI access and indexing
+- Excluding configuration files with secrets
+- Limiting access to proprietary code
+- Excluding specific submodules from Cursor's indexing
+
+Files listed in `.cursorignore` will be excluded from Cursor's AI features in a best-effort way:
+
+- Not included in tab and chat requests
+- Not included in context for AI features
+- Not indexed for search or context features
+- Not available through @-symbols or other context tools
+
+Example `.cursorignore` file:
+
+```
+# Exclude specific submodule
+repo_02/
+
+# Large binary files
+*.zip
+*.tar.gz
+
+# Credentials and secrets
+.env.local
+*_key.json
+```
+
+#### .cursorindexingignore
+
+The `.cursorindexingignore` file only controls which files are indexed for search and context features. It automatically inherits all patterns from your `.gitignore` files.
+
+Use this file when you want to:
+
+- Exclude large generated files from indexing
+- Skip indexing of binary files
+- Control which parts of your codebase are searchable
+- Optimize indexing performance
+
+Important: Files in `.cursorindexingignore` can still be manually included as context or accessed by AI features - they just won't be automatically indexed or included in search results.
+
+### File Format and Syntax
+
+Both `.cursorignore` and `.cursorindexingignore` use the same syntax as `.gitignore`. Here are some examples:
+
+```sh
+# Ignore all files in the `dist` directory
+dist/
+
+# Ignore all `.log` files
+*.log
+
+# Ignore specific file `config.json`
+config.json
+```
+
+You can also use negation patterns to include files that would otherwise be excluded:
+
+```sh
+# To include files that are excluded by .gitignore
+!/path/to/folder/gitignored/to/index/*
+!/path/to/folder/gitignored/to/index/**/*
+```
+
+### Rules for AI (.cursorrules)
+
+The `.cursorrules` file allows you to write repository-level rules for the AI. Place this file in the root of your repository to:
+
+- Provide context on what you're building
+- Define style guidelines
+- Share information on commonly-used methods
+- Set project-specific AI behavior
+
+Unlike the global "Rules for AI" setting in Cursor preferences, `.cursorrules` is specific to the repository and will be applied whenever someone opens the repository in Cursor.
+
+Example `.cursorrules` file:
+
+```
+This repository uses a meta-repository structure with git submodules.
+
+Style guidelines:
+- Use camelCase for variable names
+- Use PascalCase for class names
+- Add JSDoc comments for all functions
+
+When generating code, prefer functional programming patterns and avoid global state.
+```
+
+### Best Practices
+
+1. **Place ignore files in the repository root**: Both `.cursorignore` and `.cursorindexingignore` should be placed in the root directory of your repository.
+
+2. **Be specific with patterns**: Use specific patterns rather than overly broad ones to avoid accidentally excluding important files.
+
+3. **Consider security implications**: Use `.cursorignore` for sensitive files that should never be accessed by AI features.
+
+4. **Document your ignore files**: Add comments to explain why certain patterns are included, especially for team repositories.
+
+5. **Version control your Cursor files**: Include `.cursorignore` and `.cursorrules` in your repository so team members have consistent experiences.
+
+::: {.callout-tip}
+When working with submodules, you can use `.cursorignore` to exclude specific submodules that contain proprietary code or are not relevant to your current work.
+:::
+
+### Troubleshooting
+
+If your ignore patterns don't seem to be working:
+
+1. Check the syntax of your patterns
+2. Ensure there are no leading slashes at the beginning of patterns
+3. Try restarting Cursor or re-indexing your codebase
+4. Use negation patterns (`!`) to override patterns from `.gitignore` 
