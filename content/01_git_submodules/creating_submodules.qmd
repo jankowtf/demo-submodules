@@ -51,7 +51,38 @@ cd ../main_repo
 In a real-world scenario, these repositories would typically be hosted on GitHub, GitLab, or another Git hosting service.
 :::
 
-### Step 3: Add the submodules to the meta repository
+### Step 3: Enable the file protocol (for local repositories only)
+
+::: {.callout-important}
+When adding local repositories as submodules (using relative or absolute file paths), you may encounter an error about the file transport protocol not being allowed. This is a security feature in Git.
+:::
+
+If you see an error like this:
+
+```
+fatal: transport 'file' not allowed
+fatal: clone of '../repo_01' into submodule path 'repo_01' failed
+```
+
+You need to enable the file protocol by running:
+
+```bash
+git config --global protocol.file.allow always
+```
+
+This allows Git to use the file:// protocol to access local repositories. This setting is only needed for local submodules and can be reverted after you're done by running:
+
+```bash
+git config --global protocol.file.allow user
+```
+
+Or remove the setting entirely:
+
+```bash
+git config --global --unset protocol.file.allow
+```
+
+### Step 4: Add the submodules to the meta repository
 
 Now, let's add the repositories as submodules:
 
@@ -65,14 +96,14 @@ git submodule add ../repo_02 repo_02
 
 This creates a `.gitmodules` file in your meta repository that tracks the submodule paths and URLs.
 
-### Step 4: Commit the changes to the meta repository
+### Step 5: Commit the changes to the meta repository
 
 ```bash
 git add .gitmodules repo_01 repo_02
 git commit -m "Add repo_01 and repo_02 as submodules"
 ```
 
-### Step 5: Verify the submodules
+### Step 6: Verify the submodules
 
 You can verify that the submodules were added correctly:
 
@@ -103,6 +134,36 @@ The `.gitmodules` file contains the mapping between the submodule's URL and the 
 ::: {.callout-important}
 When using remote repositories, the URLs would be the full repository URLs, such as `https://github.com/username/repo_01.git`.
 :::
+
+### Preparing for GitHub (or other remote hosting)
+
+If you plan to push your meta repository with submodules to GitHub or another remote host, you'll need to:
+
+1. Create empty repositories on the hosting service for your main repo and each submodule
+2. Update the submodule URLs in the `.gitmodules` file to point to the remote repositories:
+
+```bash
+git config -f .gitmodules submodule.repo_01.url https://github.com/jankowtf/repo_01.git
+git config -f .gitmodules submodule.repo_02.url https://github.com/jankowtf/repo_02.git
+git add .gitmodules
+git commit -m "Update submodule URLs to remote repositories"
+```
+
+3. Push all repositories to their respective remotes:
+
+```bash
+# Push the main repository
+git remote add origin https://github.com/jankowtf/main_repo.git
+git push -u origin main
+
+# Push the submodules
+cd repo_01
+git remote add origin https://github.com/jankowtf/repo_01.git
+git push -u origin main
+cd ../repo_02
+git remote add origin https://github.com/jankowtf/repo_02.git
+git push -u origin main
+```
 
 ### Next steps
 

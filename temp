@@ -1,0 +1,22 @@
+# Create empty repos on GitHub for all three projects
+# Then add remotes and push
+
+# For main repo
+git remote add origin https://github.com/yourusername/main_repo.git
+
+# Update submodule URLs in .gitmodules
+git config -f .gitmodules submodule.repo_01.url https://github.com/yourusername/repo_01.git
+git config -f .gitmodules submodule.repo_02.url https://github.com/yourusername/repo_02.git
+git add .gitmodules
+git commit -m "Update submodule URLs to GitHub repositories"
+
+git push -u origin main
+
+# Push the submodules too
+cd ../repo_01
+git remote add origin https://github.com/yourusername/repo_01.git
+git push -u origin main
+
+cd ../repo_02
+git remote add origin https://github.com/yourusername/repo_02.git
+git push -u origin main
