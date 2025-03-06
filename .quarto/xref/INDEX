@@ -1,0 +1,14 @@
+{
+  "content/01_git_submodules/index.qmd": {
+    "index.html": "5e468c36"
+  },
+  "content/01_git_submodules/managing_submodules.qmd": {
+    "managing_submodules.html": "88f7999b"
+  },
+  "content/01_git_submodules/creating_submodules.qmd": {
+    "creating_submodules.html": "5626b22e"
+  },
+  "index.qmd": {
+    "index.html": "2fd0a0a7"
+  }
+}

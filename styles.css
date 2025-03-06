@@ -1,0 +1,42 @@
+/* Custom CSS styles */
+pre {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1em;
+}
+
+.callout {
+    margin: 1em 0;
+    padding: 1em;
+    border-left: 5px solid #5bc0de;
+    background-color: #f8f8f8;
+}
+
+.callout-note {
+    border-left-color: #5bc0de;
+}
+
+.callout-warning {
+    border-left-color: #f0ad4e;
+}
+
+.callout-important {
+    border-left-color: #d9534f;
+}
+
+.callout-tip {
+    border-left-color: #5cb85c;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+code {
+    color: #c7254e;
+    background-color: #f9f2f4;
+    padding: 2px 4px;
+    border-radius: 4px;
+}

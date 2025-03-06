@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: _site
+  
+website:
+  title: "Git Submodules Learning Repository"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: content/01_git_submodules/index.qmd
+        text: Git Submodules
+  sidebar:
+    style: "docked"
+    contents:
+      - section: "Git Submodules"
+        contents:
+          - content/01_git_submodules/index.qmd
+          - content/01_git_submodules/creating_submodules.qmd
+          - content/01_git_submodules/managing_submodules.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true 

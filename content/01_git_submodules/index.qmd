@@ -1,0 +1,31 @@
+---
+title: "Git Submodules Overview"
+---
+
+## What are Git submodules?
+
+Git submodules allow you to keep a Git repository as a subdirectory of another Git repository. This lets you clone another repository into your project and keep your commits separate.
+
+### Why use Git submodules?
+
+- **Code reuse**: Include libraries or shared components across multiple projects
+- **Separation of concerns**: Keep distinct parts of a project in separate repositories
+- **Version control**: Track specific versions of dependencies
+- **Collaboration**: Allow different teams to work on different parts of a project
+
+### Common use cases
+
+- Including third-party libraries in your project
+- Splitting a large project into smaller, manageable pieces
+- Creating a "meta" repository that combines multiple repositories
+
+### In this section
+
+- [Creating Git Submodules](creating_submodules.qmd): Learn how to create a meta repository with submodules
+- [Managing Git Submodules](managing_submodules.qmd): Learn how to update, modify, and maintain submodules
+
+::: {.callout-note}
+Git submodules can be tricky to work with at first, but they're a powerful tool once you understand how they work.
+:::
+
+Let's get started with [creating Git submodules](creating_submodules.qmd). 

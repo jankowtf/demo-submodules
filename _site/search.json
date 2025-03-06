@@ -1,0 +1,88 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Git Submodules Learning Repository",
+    "section": "",
+    "text": "This repository contains learning materials about Git submodules and how to effectively use them in your projects.\n\n\n\nHow to create a meta repository with Git submodules\nHow to manage and update submodules\nBest practices for working with submodules\n\n\n\n\nNavigate to the Git Submodules section to begin learning about creating and managing Git submodules.\n\n\n\nmain_repo/\n├── repo_01/         # First submodule\n└── repo_02/         # Second submodule\nThis learning repository itself is structured as a Quarto website, making it easy to navigate and learn the concepts."
+  },
+  {
+    "objectID": "index.html#welcome-to-the-learning-repository",
+    "href": "index.html#welcome-to-the-learning-repository",
+    "title": "Git Submodules Learning Repository",
+    "section": "",
+    "text": "This repository contains learning materials about Git submodules and how to effectively use them in your projects.\n\n\n\nHow to create a meta repository with Git submodules\nHow to manage and update submodules\nBest practices for working with submodules\n\n\n\n\nNavigate to the Git Submodules section to begin learning about creating and managing Git submodules.\n\n\n\nmain_repo/\n├── repo_01/         # First submodule\n└── repo_02/         # Second submodule\nThis learning repository itself is structured as a Quarto website, making it easy to navigate and learn the concepts."
+  },
+  {
+    "objectID": "content/01_git_submodules/managing_submodules.html",
+    "href": "content/01_git_submodules/managing_submodules.html",
+    "title": "Managing Git Submodules",
+    "section": "",
+    "text": "Once you’ve created a meta repository with submodules, you’ll need to know how to manage them effectively.\n\n\nWhen you clone a repository that contains submodules, the submodule directories are created but no content is pulled by default:\ngit clone &lt;repository-url&gt;\ncd &lt;repository-directory&gt;\nYou’ll notice that the submodule directories exist but are empty. To initialize and update the submodules:\n# Initialize the submodules\ngit submodule init\n\n# Update the submodules to pull their content\ngit submodule update\nAlternatively, you can clone and initialize submodules in one command:\ngit clone --recurse-submodules &lt;repository-url&gt;\n\n\n\nTo update a submodule to the latest commit on its remote branch:\n# Navigate to the submodule directory\ncd repo_01\n\n# Fetch and checkout the latest changes\ngit fetch\ngit checkout origin/main  # or origin/master, depending on the branch name\n\n# Return to the parent repository\ncd ..\n\n# Update the parent repository to track the new submodule commit\ngit add repo_01\ngit commit -m \"Update repo_01 submodule to latest commit\"\nTo update all submodules at once:\ngit submodule update --remote\ngit add .\ngit commit -m \"Update all submodules to latest commits\"\n\n\n\nTo make changes within a submodule:\n\nNavigate to the submodule directory:\n\ncd repo_01\n\nCreate a branch for your changes:\n\ngit checkout -b feature-branch\n\nMake your changes, commit them, and push to the submodule’s repository:\n\n# Make changes to files\ngit add .\ngit commit -m \"Add new feature\"\ngit push origin feature-branch\n\nUpdate the parent repository to point to the new commit:\n\ncd ..\ngit add repo_01\ngit commit -m \"Update repo_01 submodule to include new feature\"\ngit push\n\n\n\nRemoving a submodule involves several steps:\n\nRemove the submodule from the .gitmodules file:\n\ngit config -f .gitmodules --remove-section submodule.repo_01\n\nStage the .gitmodules changes:\n\ngit add .gitmodules\n\nRemove the submodule from the Git configuration:\n\ngit config --remove-section submodule.repo_01\n\nRemove the submodule directory from Git’s index:\n\ngit rm --cached repo_01\n\nCommit the changes:\n\ngit commit -m \"Remove repo_01 submodule\"\n\nDelete the untracked submodule directory:\n\nrm -rf repo_01\n\n\n\n\nAlways use the --recurse-submodules flag when cloning repositories with submodules.\nCommunicate changes to submodules with your team, as they might not be immediately obvious.\nPin submodules to specific commits rather than branches to ensure stability.\nUse relative paths for local development and absolute URLs for shared repositories.\nDocument the purpose of each submodule in your project’s README.\n\n\n\n\n\n\n\nTip\n\n\n\nWhen working with submodules, it’s often helpful to create shell aliases or scripts for common operations to save time and reduce errors.\n\n\n\n\n\n\n\nSubmodules often end up in a detached HEAD state. To fix this:\ncd repo_01\ngit checkout main  # or master, depending on the branch name\n\n\n\nIf changes to a submodule aren’t being tracked by the parent repository:\n# From the parent repository\ngit add repo_01\ngit commit -m \"Update repo_01 submodule reference\"\n\n\n\nTo revert to a previous submodule commit:\ncd repo_01\ngit checkout &lt;previous-commit-hash&gt;\ncd ..\ngit add repo_01\ngit commit -m \"Revert repo_01 to previous commit\"",
+    "crumbs": [
+      "Home",
+      "Git Submodules",
+      "Managing Git Submodules"
+    ]
+  },
+  {
+    "objectID": "content/01_git_submodules/managing_submodules.html#working-with-git-submodules",
+    "href": "content/01_git_submodules/managing_submodules.html#working-with-git-submodules",
+    "title": "Managing Git Submodules",
+    "section": "",
+    "text": "Once you’ve created a meta repository with submodules, you’ll need to know how to manage them effectively.\n\n\nWhen you clone a repository that contains submodules, the submodule directories are created but no content is pulled by default:\ngit clone &lt;repository-url&gt;\ncd &lt;repository-directory&gt;\nYou’ll notice that the submodule directories exist but are empty. To initialize and update the submodules:\n# Initialize the submodules\ngit submodule init\n\n# Update the submodules to pull their content\ngit submodule update\nAlternatively, you can clone and initialize submodules in one command:\ngit clone --recurse-submodules &lt;repository-url&gt;\n\n\n\nTo update a submodule to the latest commit on its remote branch:\n# Navigate to the submodule directory\ncd repo_01\n\n# Fetch and checkout the latest changes\ngit fetch\ngit checkout origin/main  # or origin/master, depending on the branch name\n\n# Return to the parent repository\ncd ..\n\n# Update the parent repository to track the new submodule commit\ngit add repo_01\ngit commit -m \"Update repo_01 submodule to latest commit\"\nTo update all submodules at once:\ngit submodule update --remote\ngit add .\ngit commit -m \"Update all submodules to latest commits\"\n\n\n\nTo make changes within a submodule:\n\nNavigate to the submodule directory:\n\ncd repo_01\n\nCreate a branch for your changes:\n\ngit checkout -b feature-branch\n\nMake your changes, commit them, and push to the submodule’s repository:\n\n# Make changes to files\ngit add .\ngit commit -m \"Add new feature\"\ngit push origin feature-branch\n\nUpdate the parent repository to point to the new commit:\n\ncd ..\ngit add repo_01\ngit commit -m \"Update repo_01 submodule to include new feature\"\ngit push\n\n\n\nRemoving a submodule involves several steps:\n\nRemove the submodule from the .gitmodules file:\n\ngit config -f .gitmodules --remove-section submodule.repo_01\n\nStage the .gitmodules changes:\n\ngit add .gitmodules\n\nRemove the submodule from the Git configuration:\n\ngit config --remove-section submodule.repo_01\n\nRemove the submodule directory from Git’s index:\n\ngit rm --cached repo_01\n\nCommit the changes:\n\ngit commit -m \"Remove repo_01 submodule\"\n\nDelete the untracked submodule directory:\n\nrm -rf repo_01\n\n\n\n\nAlways use the --recurse-submodules flag when cloning repositories with submodules.\nCommunicate changes to submodules with your team, as they might not be immediately obvious.\nPin submodules to specific commits rather than branches to ensure stability.\nUse relative paths for local development and absolute URLs for shared repositories.\nDocument the purpose of each submodule in your project’s README.\n\n\n\n\n\n\n\nTip\n\n\n\nWhen working with submodules, it’s often helpful to create shell aliases or scripts for common operations to save time and reduce errors.\n\n\n\n\n\n\n\nSubmodules often end up in a detached HEAD state. To fix this:\ncd repo_01\ngit checkout main  # or master, depending on the branch name\n\n\n\nIf changes to a submodule aren’t being tracked by the parent repository:\n# From the parent repository\ngit add repo_01\ngit commit -m \"Update repo_01 submodule reference\"\n\n\n\nTo revert to a previous submodule commit:\ncd repo_01\ngit checkout &lt;previous-commit-hash&gt;\ncd ..\ngit add repo_01\ngit commit -m \"Revert repo_01 to previous commit\"",
+    "crumbs": [
+      "Home",
+      "Git Submodules",
+      "Managing Git Submodules"
+    ]
+  },
+  {
+    "objectID": "content/01_git_submodules/index.html",
+    "href": "content/01_git_submodules/index.html",
+    "title": "Git Submodules Overview",
+    "section": "",
+    "text": "Git submodules allow you to keep a Git repository as a subdirectory of another Git repository. This lets you clone another repository into your project and keep your commits separate.\n\n\n\nCode reuse: Include libraries or shared components across multiple projects\nSeparation of concerns: Keep distinct parts of a project in separate repositories\nVersion control: Track specific versions of dependencies\nCollaboration: Allow different teams to work on different parts of a project\n\n\n\n\n\nIncluding third-party libraries in your project\nSplitting a large project into smaller, manageable pieces\nCreating a “meta” repository that combines multiple repositories\n\n\n\n\n\nCreating Git Submodules: Learn how to create a meta repository with submodules\nManaging Git Submodules: Learn how to update, modify, and maintain submodules\n\n\n\n\n\n\n\nNote\n\n\n\nGit submodules can be tricky to work with at first, but they’re a powerful tool once you understand how they work.\n\n\nLet’s get started with creating Git submodules.",
+    "crumbs": [
+      "Home",
+      "Git Submodules",
+      "Git Submodules Overview"
+    ]
+  },
+  {
+    "objectID": "content/01_git_submodules/index.html#what-are-git-submodules",
+    "href": "content/01_git_submodules/index.html#what-are-git-submodules",
+    "title": "Git Submodules Overview",
+    "section": "",
+    "text": "Git submodules allow you to keep a Git repository as a subdirectory of another Git repository. This lets you clone another repository into your project and keep your commits separate.\n\n\n\nCode reuse: Include libraries or shared components across multiple projects\nSeparation of concerns: Keep distinct parts of a project in separate repositories\nVersion control: Track specific versions of dependencies\nCollaboration: Allow different teams to work on different parts of a project\n\n\n\n\n\nIncluding third-party libraries in your project\nSplitting a large project into smaller, manageable pieces\nCreating a “meta” repository that combines multiple repositories\n\n\n\n\n\nCreating Git Submodules: Learn how to create a meta repository with submodules\nManaging Git Submodules: Learn how to update, modify, and maintain submodules\n\n\n\n\n\n\n\nNote\n\n\n\nGit submodules can be tricky to work with at first, but they’re a powerful tool once you understand how they work.\n\n\nLet’s get started with creating Git submodules.",
+    "crumbs": [
+      "Home",
+      "Git Submodules",
+      "Git Submodules Overview"
+    ]
+  },
+  {
+    "objectID": "content/01_git_submodules/creating_submodules.html",
+    "href": "content/01_git_submodules/creating_submodules.html",
+    "title": "Creating a Meta Repository with Git Submodules",
+    "section": "",
+    "text": "In this tutorial, we’ll create a meta repository that contains two Git submodules: repo_01 and repo_02.\n\n\n\nGit installed on your system\nBasic knowledge of Git commands\nTwo existing Git repositories to use as submodules (or we’ll create them)\n\n\n\n\nFirst, let’s create a new directory for our meta repository and initialize it as a Git repository:\nmkdir main_repo\ncd main_repo\ngit init\n\n\n\nIf you don’t already have repositories to use as submodules, you can create them:\n# Create the first repository\nmkdir -p ../repo_01\ncd ../repo_01\ngit init\necho \"# Repository 01\" &gt; README.md\ngit add README.md\ngit commit -m \"Initial commit for repo_01\"\n\n# Create the second repository\nmkdir -p ../repo_02\ncd ../repo_02\ngit init\necho \"# Repository 02\" &gt; README.md\ngit add README.md\ngit commit -m \"Initial commit for repo_02\"\n\n# Return to the meta repository\ncd ../main_repo\n\n\n\n\n\n\nNote\n\n\n\nIn a real-world scenario, these repositories would typically be hosted on GitHub, GitLab, or another Git hosting service.\n\n\n\n\n\nNow, let’s add the repositories as submodules:\n# Add the first submodule\ngit submodule add ../repo_01 repo_01\n\n# Add the second submodule\ngit submodule add ../repo_02 repo_02\nThis creates a .gitmodules file in your meta repository that tracks the submodule paths and URLs.\n\n\n\ngit add .gitmodules repo_01 repo_02\ngit commit -m \"Add repo_01 and repo_02 as submodules\"\n\n\n\nYou can verify that the submodules were added correctly:\ngit submodule status\nYou should see output similar to:\n &lt;commit-hash&gt; repo_01 (heads/master)\n &lt;commit-hash&gt; repo_02 (heads/master)\n\n\n\nThe .gitmodules file contains the mapping between the submodule’s URL and the local path. It should look something like this:\n[submodule \"repo_01\"]\n    path = repo_01\n    url = ../repo_01\n[submodule \"repo_02\"]\n    path = repo_02\n    url = ../repo_02\n\n\n\n\n\n\nImportant\n\n\n\nWhen using remote repositories, the URLs would be the full repository URLs, such as https://github.com/username/repo_01.git.\n\n\n\n\n\nNow that you’ve created a meta repository with submodules, learn how to manage and update them.",
+    "crumbs": [
+      "Home",
+      "Git Submodules",
+      "Creating a Meta Repository with Git Submodules"
+    ]
+  },
+  {
+    "objectID": "content/01_git_submodules/creating_submodules.html#setting-up-a-meta-repository-with-submodules",
+    "href": "content/01_git_submodules/creating_submodules.html#setting-up-a-meta-repository-with-submodules",
+    "title": "Creating a Meta Repository with Git Submodules",
+    "section": "",
+    "text": "In this tutorial, we’ll create a meta repository that contains two Git submodules: repo_01 and repo_02.\n\n\n\nGit installed on your system\nBasic knowledge of Git commands\nTwo existing Git repositories to use as submodules (or we’ll create them)\n\n\n\n\nFirst, let’s create a new directory for our meta repository and initialize it as a Git repository:\nmkdir main_repo\ncd main_repo\ngit init\n\n\n\nIf you don’t already have repositories to use as submodules, you can create them:\n# Create the first repository\nmkdir -p ../repo_01\ncd ../repo_01\ngit init\necho \"# Repository 01\" &gt; README.md\ngit add README.md\ngit commit -m \"Initial commit for repo_01\"\n\n# Create the second repository\nmkdir -p ../repo_02\ncd ../repo_02\ngit init\necho \"# Repository 02\" &gt; README.md\ngit add README.md\ngit commit -m \"Initial commit for repo_02\"\n\n# Return to the meta repository\ncd ../main_repo\n\n\n\n\n\n\nNote\n\n\n\nIn a real-world scenario, these repositories would typically be hosted on GitHub, GitLab, or another Git hosting service.\n\n\n\n\n\nNow, let’s add the repositories as submodules:\n# Add the first submodule\ngit submodule add ../repo_01 repo_01\n\n# Add the second submodule\ngit submodule add ../repo_02 repo_02\nThis creates a .gitmodules file in your meta repository that tracks the submodule paths and URLs.\n\n\n\ngit add .gitmodules repo_01 repo_02\ngit commit -m \"Add repo_01 and repo_02 as submodules\"\n\n\n\nYou can verify that the submodules were added correctly:\ngit submodule status\nYou should see output similar to:\n &lt;commit-hash&gt; repo_01 (heads/master)\n &lt;commit-hash&gt; repo_02 (heads/master)\n\n\n\nThe .gitmodules file contains the mapping between the submodule’s URL and the local path. It should look something like this:\n[submodule \"repo_01\"]\n    path = repo_01\n    url = ../repo_01\n[submodule \"repo_02\"]\n    path = repo_02\n    url = ../repo_02\n\n\n\n\n\n\nImportant\n\n\n\nWhen using remote repositories, the URLs would be the full repository URLs, such as https://github.com/username/repo_01.git.\n\n\n\n\n\nNow that you’ve created a meta repository with submodules, learn how to manage and update them.",
+    "crumbs": [
+      "Home",
+      "Git Submodules",
+      "Creating a Meta Repository with Git Submodules"
+    ]
+  }
+]

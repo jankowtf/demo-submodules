@@ -1,0 +1,183 @@
+---
+title: "Managing Git Submodules"
+---
+
+## Working with Git submodules
+
+Once you've [created a meta repository with submodules](creating_submodules.qmd), you'll need to know how to manage them effectively.
+
+### Cloning a repository with submodules
+
+When you clone a repository that contains submodules, the submodule directories are created but no content is pulled by default:
+
+```bash
+git clone <repository-url>
+cd <repository-directory>
+```
+
+You'll notice that the submodule directories exist but are empty. To initialize and update the submodules:
+
+```bash
+# Initialize the submodules
+git submodule init
+
+# Update the submodules to pull their content
+git submodule update
+```
+
+Alternatively, you can clone and initialize submodules in one command:
+
+```bash
+git clone --recurse-submodules <repository-url>
+```
+
+### Updating submodules
+
+To update a submodule to the latest commit on its remote branch:
+
+```bash
+# Navigate to the submodule directory
+cd repo_01
+
+# Fetch and checkout the latest changes
+git fetch
+git checkout origin/main  # or origin/master, depending on the branch name
+
+# Return to the parent repository
+cd ..
+
+# Update the parent repository to track the new submodule commit
+git add repo_01
+git commit -m "Update repo_01 submodule to latest commit"
+```
+
+To update all submodules at once:
+
+```bash
+git submodule update --remote
+git add .
+git commit -m "Update all submodules to latest commits"
+```
+
+### Making changes in a submodule
+
+To make changes within a submodule:
+
+1. Navigate to the submodule directory:
+
+```bash
+cd repo_01
+```
+
+2. Create a branch for your changes:
+
+```bash
+git checkout -b feature-branch
+```
+
+3. Make your changes, commit them, and push to the submodule's repository:
+
+```bash
+# Make changes to files
+git add .
+git commit -m "Add new feature"
+git push origin feature-branch
+```
+
+4. Update the parent repository to point to the new commit:
+
+```bash
+cd ..
+git add repo_01
+git commit -m "Update repo_01 submodule to include new feature"
+git push
+```
+
+### Removing a submodule
+
+Removing a submodule involves several steps:
+
+1. Remove the submodule from the `.gitmodules` file:
+
+```bash
+git config -f .gitmodules --remove-section submodule.repo_01
+```
+
+2. Stage the `.gitmodules` changes:
+
+```bash
+git add .gitmodules
+```
+
+3. Remove the submodule from the Git configuration:
+
+```bash
+git config --remove-section submodule.repo_01
+```
+
+4. Remove the submodule directory from Git's index:
+
+```bash
+git rm --cached repo_01
+```
+
+5. Commit the changes:
+
+```bash
+git commit -m "Remove repo_01 submodule"
+```
+
+6. Delete the untracked submodule directory:
+
+```bash
+rm -rf repo_01
+```
+
+### Best practices for working with submodules
+
+1. **Always use the `--recurse-submodules` flag when cloning** repositories with submodules.
+
+2. **Communicate changes to submodules** with your team, as they might not be immediately obvious.
+
+3. **Pin submodules to specific commits** rather than branches to ensure stability.
+
+4. **Use relative paths for local development** and absolute URLs for shared repositories.
+
+5. **Document the purpose of each submodule** in your project's README.
+
+::: {.callout-tip}
+When working with submodules, it's often helpful to create shell aliases or scripts for common operations to save time and reduce errors.
+:::
+
+### Troubleshooting common issues
+
+#### Detached HEAD in submodules
+
+Submodules often end up in a detached HEAD state. To fix this:
+
+```bash
+cd repo_01
+git checkout main  # or master, depending on the branch name
+```
+
+#### Submodule changes not being tracked
+
+If changes to a submodule aren't being tracked by the parent repository:
+
+```bash
+# From the parent repository
+git add repo_01
+git commit -m "Update repo_01 submodule reference"
+```
+
+#### Accidentally committed the wrong submodule commit
+
+To revert to a previous submodule commit:
+
+```bash
+cd repo_01
+git checkout <previous-commit-hash>
+cd ..
+git add repo_01
+git commit -m "Revert repo_01 to previous commit"
+``` 

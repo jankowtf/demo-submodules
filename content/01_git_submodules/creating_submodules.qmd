@@ -1,0 +1,109 @@
+---
+title: "Creating a Meta Repository with Git Submodules"
+---
+
+## Setting up a meta repository with submodules
+
+In this tutorial, we'll create a meta repository that contains two Git submodules: `repo_01` and `repo_02`.
+
+### Prerequisites
+
+- Git installed on your system
+- Basic knowledge of Git commands
+- Two existing Git repositories to use as submodules (or we'll create them)
+
+### Step 1: Create the meta repository
+
+First, let's create a new directory for our meta repository and initialize it as a Git repository:
+
+```bash
+mkdir main_repo
+cd main_repo
+git init
+```
+
+### Step 2: Create repositories for submodules (if needed)
+
+If you don't already have repositories to use as submodules, you can create them:
+
+```bash
+# Create the first repository
+mkdir -p ../repo_01
+cd ../repo_01
+git init
+echo "# Repository 01" > README.md
+git add README.md
+git commit -m "Initial commit for repo_01"
+
+# Create the second repository
+mkdir -p ../repo_02
+cd ../repo_02
+git init
+echo "# Repository 02" > README.md
+git add README.md
+git commit -m "Initial commit for repo_02"
+
+# Return to the meta repository
+cd ../main_repo
+```
+
+::: {.callout-note}
+In a real-world scenario, these repositories would typically be hosted on GitHub, GitLab, or another Git hosting service.
+:::
+
+### Step 3: Add the submodules to the meta repository
+
+Now, let's add the repositories as submodules:
+
+```bash
+# Add the first submodule
+git submodule add ../repo_01 repo_01
+
+# Add the second submodule
+git submodule add ../repo_02 repo_02
+```
+
+This creates a `.gitmodules` file in your meta repository that tracks the submodule paths and URLs.
+
+### Step 4: Commit the changes to the meta repository
+
+```bash
+git add .gitmodules repo_01 repo_02
+git commit -m "Add repo_01 and repo_02 as submodules"
+```
+
+### Step 5: Verify the submodules
+
+You can verify that the submodules were added correctly:
+
+```bash
+git submodule status
+```
+
+You should see output similar to:
+
+```
+ <commit-hash> repo_01 (heads/master)
+ <commit-hash> repo_02 (heads/master)
+```
+
+### Understanding the .gitmodules file
+
+The `.gitmodules` file contains the mapping between the submodule's URL and the local path. It should look something like this:
+
+```
+[submodule "repo_01"]
+	path = repo_01
+	url = ../repo_01
+[submodule "repo_02"]
+	path = repo_02
+	url = ../repo_02
+```
+
+::: {.callout-important}
+When using remote repositories, the URLs would be the full repository URLs, such as `https://github.com/username/repo_01.git`.
+:::
+
+### Next steps
+
+Now that you've created a meta repository with submodules, learn how to [manage and update them](managing_submodules.qmd). 
